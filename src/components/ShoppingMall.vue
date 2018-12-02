@@ -58,7 +58,13 @@
         <div class="hot-area">
             <div class="hot-title">热卖商品</div>
             <div class="hot-goods">
-                <!-- 这里需要一个list组件 -->
+                <van-list>
+                    <van-row gutter="20">
+                        <van-col span="12" v-for="(item,index) in hotGoods" :key="index">
+                            <goods-info :goodsImage="item.image" :goodsName="item.name" :goodsPrice="item.price"></goods-info>
+                        </van-col>
+                    </van-row>
+                </van-list>
             </div>
         </div>
     </div>
@@ -73,6 +79,10 @@ import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import floorComponent from './component/floorComponent'
 //引入Filter过滤
 import {toMoney} from '@/filter/moneyFilter.js'
+//引入goodsInfoComponent组件
+import goodsInfo from './component/goodsInfoComponent'
+//引入接口
+import url from '@/serviceAPI.config.js'
 
 
 export default {
@@ -90,6 +100,7 @@ export default {
             floor2: [], //楼层2的数据
             floor3: [], //楼层3的数据
             floorName: {}, //楼层名称
+            hotGoods: [], //热卖商品
         }
     },
     //注册组件
@@ -97,6 +108,7 @@ export default {
         swiper,
         swiperSlide,
         floorComponent,
+        goodsInfo,
     },
     filters: {
         moneyFilter(money) {
@@ -105,7 +117,7 @@ export default {
     },
     created() {
         axios({
-            url: 'https://www.easy-mock.com/mock/5c009e29494e234c09016313/example/test',
+            url: url.getShoppingMallInfo,
             method: 'get'
         })
         .then(response => {
@@ -119,6 +131,7 @@ export default {
                 this.floor2 = response.data.data.floor2 //楼层2数据
                 this.floor3 = response.data.data.floor3 //楼层3数据
                 this.floorName = response.data.data.floorName //楼层名称
+                this.hotGoods = response.data.data.hotGoods //热卖商品
             }
         })
         .catch((error) => {})
@@ -192,6 +205,13 @@ export default {
         border-right: 1px solid #eee;
         font-size: 12px;
         text-align: center;    
+    }
+
+    .hot-area {
+        text-align: center;
+        font-size: 14px;
+        height: 1.8rem;
+        line-height: 1.8rem;
     }
 </style>
 
