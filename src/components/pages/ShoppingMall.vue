@@ -76,11 +76,11 @@ import axios from 'axios'
 import 'swiper/dist/css/swiper.css'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 //引入floorComponent组件
-import floorComponent from './component/floorComponent'
+import floorComponent from '../component/floorComponent'
 //引入Filter过滤
 import {toMoney} from '@/filter/moneyFilter.js'
 //引入goodsInfoComponent组件
-import goodsInfo from './component/goodsInfoComponent'
+import goodsInfo from '../component/goodsInfoComponent'
 //引入接口
 import url from '@/serviceAPI.config.js'
 
@@ -91,7 +91,7 @@ export default {
             swiperOption: {
                 slidePerView:3
             },
-            locationIcon: require('../assets/images/location.png'),
+            locationIcon: require('../../assets/images/location.png'),
             bannerPicArray: [], //轮播图
             category: [], //商品类别标签栏
             adBanner: '', //广告图片
